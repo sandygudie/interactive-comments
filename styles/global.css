@@ -1,27 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 300;
+  src: url("./fonts/Rubik/Rubik-Light.ttf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 400;
+  src: url("./fonts/Rubik/Rubik-Regular.ttf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 500;
+  src: url("./fonts/Rubik/Rubik-Medium.ttf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 700;
+  src: url("./fonts/Rubik/Rubik-Bold.ttf") format("opentype");
+  font-display: swap;
+}
+
 html,
 body {
-  padding: 0;
+  font-family: "Rubik", sans-serif !important;
+  scroll-behavior: smooth;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
+  background-color: hsl(223, 19%, 93%);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.25;
 }
 
-* {
-  box-sizing: border-box;
+@layer base {
+  :root {
+    --color-background: hsl(223, 19%, 93%);
+    --color-text: hsl(211, 10%, 45%);
+    /* --color-input-background: white; */
+  }
 }
-
-a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+textarea::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: hsl(211, 10%, 45%);
+  opacity: 1; /* Firefox */
 }
