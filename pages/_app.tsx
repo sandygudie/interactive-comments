@@ -9,9 +9,8 @@ export default function App({ Component, pageProps }) {
   );
 }
 
-// is context necessary for this app
-// can you used component composition
-//use lodash method for mapping
+
 // use reducer method for updating state
-// learn recursive
+// use login
+// 
 
