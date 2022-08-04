@@ -23,13 +23,13 @@ function CommentHeader({ createdAt, username, userimage }: Props) {
         height={20}
         className="rounded"
       />
-      <p className="ml-4 font-semibold text-gray-500">{username}</p>
+      <p className="ml-3 font-semibold text-gray-500">{username}</p>
       {currentUser.username === username && (
         <p className="px-[4px] ml-1 text-white text-xs bg-primary rounded-sm">
           YOU
         </p>
       )}
-      <p className="ml-4 text-gray-200">{createdAt}</p>
+      <p className="ml-3 text-gray-200 font-medium">{createdAt}</p>
     </div>
   );
 }

@@ -12,6 +12,7 @@ interface Props {
 function Comments({ comment, replyingTo }: Props) {
   const [isReply, setIsReply] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+
   return (
     <>
       <div className="relative">
@@ -34,7 +35,7 @@ function Comments({ comment, replyingTo }: Props) {
           <CommentResponse response={comment.replies} />
         )}
       </div>
-      {isReply && <MessageBox setIsReply={setIsReply} commentid={comment.id} />}
+      {isReply && <MessageBox setIsReply={setIsReply} commentId={comment.id} />}
     </>
   );
 }

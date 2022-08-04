@@ -23,10 +23,12 @@ function CommentMsg({
           setIsEdit={setIsEdit}
         />
       ) : (
-        <div className="text-base my-2">
+        <div className="text-sm text-gray-200 my-2 font-medium">
           {" "}
           {replyingTo && (
-            <span className="font-medium text-primary ">@{replyingTo}</span>
+            <span className="font-medium text-primary font-bold">
+              @{replyingTo}
+            </span>
           )}{" "}
           {content}
         </div>

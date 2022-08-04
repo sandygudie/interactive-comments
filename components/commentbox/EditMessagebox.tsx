@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useAppContext } from "../../context";
+interface Props {
+  content: string;
+  commentId: number;
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-function EditMessagebox({ setIsEdit, content, commentId }) {
+function EditMessagebox({ setIsEdit, content, commentId }: Props) {
   const { editComment } = useAppContext();
   const [editMsg, setEditMsg] = useState("");
   const handleChange = (event) => {
@@ -10,7 +15,6 @@ function EditMessagebox({ setIsEdit, content, commentId }) {
 
   const editCommenthandler = (event) => {
     event.preventDefault();
-
     editComment(editMsg, commentId), setIsEdit(false);
   };
   return (

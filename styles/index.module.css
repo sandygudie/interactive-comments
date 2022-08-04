@@ -1,0 +1,26 @@
+.drawer {
+  background-color: hsl(211deg 10% 45% / 46%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+.drawerContent {
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 50%;
+  background-color: white;
+  text-align: left;
+  z-index: 10;
+  top: 50%;
+  overflow: hidden;
+  @apply rounded-lg w-[90%] md:w-96 p-6;
+}

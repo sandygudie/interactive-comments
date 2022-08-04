@@ -19,6 +19,7 @@ export const AppProvider = ({
 }): JSX.Element => {
   const [comments, setComments] = useState<Comment[] | any>(data.comments);
   const [currentUser, setCurrentuser] = useState<CurrentUser>(data.currentUser);
+  const [isDelete, setisDelete ] =useState(false)
 
   useEffect(() => {
     if (localStorage.getItem("comments") === null) {
@@ -31,12 +32,8 @@ export const AppProvider = ({
     setCurrentuser(JSON.parse(localStorage.getItem("commentsUser") || ""));
   }, [setComments, setCurrentuser]);
 
-  // function remove( id) {
-  //   return comments.some((o, i, a) =>
-  //     o.id === id ? a.splice(i, 1) : o.replies.filter(s => s.id != id)
-  //   );
-  // }
-  const deleteComment = (id) => {
+  const deleteComment = (id:number) => {
+    console.log(id)
     comments.forEach(function (o, i) {
       o.id === id
         ? comments.splice(i, 1)
@@ -48,9 +45,10 @@ export const AppProvider = ({
     });
     setComments([...comments]);
     localStorage.setItem("comments", JSON.stringify([...comments]));
+    setisDelete(false)
   };
 
-  const AddComment = (comment) => {
+  const AddComment = (comment:string) => {
     if (comment) {
       const newComment: Comment = {
         id: uuidv4(),
@@ -69,7 +67,7 @@ export const AppProvider = ({
     return;
   };
 
-  const editComment = (editMsg, commentId) => {
+  const editComment = (editMsg:string, commentId:number) => {
     if (editMsg) {
       const editMessage = comments.map((comment) => {
         comment.id === commentId
@@ -92,7 +90,7 @@ export const AppProvider = ({
     }
   };
 
-  const increaseScore = (commentId) => {
+  const increaseScore = (commentId:number) => {
     const scorecomments = comments.map((comment) => {
       comment.id === commentId
         ? comment.score++
@@ -111,7 +109,7 @@ export const AppProvider = ({
     localStorage.setItem("comments", JSON.stringify(scorecomments));
   };
 
-  const decreaseScore = (commentId) => {
+  const decreaseScore = (commentId:number) => {
     const scorecomments = comments.map((comment) => {
       comment.id === commentId
         ? comment.score--
@@ -130,7 +128,7 @@ export const AppProvider = ({
     localStorage.setItem("comments", JSON.stringify(scorecomments));
   };
 
-  const AddReply = (comment, commentid) => {
+  const AddReply = (comment:string, commentid:number) => {
     if (comment) {
       let replyingToName = "";
       comments.forEach((post) =>
@@ -175,6 +173,8 @@ export const AppProvider = ({
         editComment,
         increaseScore,
         decreaseScore,
+        isDelete, 
+        setisDelete
       }}
     >
       {children}

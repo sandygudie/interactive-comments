@@ -14,5 +14,4 @@ export default function App({ Component, pageProps }) {
 //use lodash method for mapping
 // use reducer method for updating state
 // learn recursive
-// change component and page naming
-// ensure typescriptt
+

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useAppContext } from "../context/index";
 interface Props {
-  commentid?: number;
+  commentId?: number;
   setIsReply?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export default function MessageBox({ commentid, setIsReply }: Props) {
+export default function MessageBox({ commentId, setIsReply }: Props) {
   const { currentUser, AddComment, AddReply } = useAppContext();
   const [message, setMessage] = useState("");
 
@@ -15,8 +15,8 @@ export default function MessageBox({ commentid, setIsReply }: Props) {
 
   const handleClick = (event) => {
     event.preventDefault();
-    commentid
-      ? (AddReply(message, commentid), setIsReply(false))
+    commentId
+      ? (AddReply(message, commentId), setIsReply(false))
       : AddComment(message);
     setMessage("");
   };

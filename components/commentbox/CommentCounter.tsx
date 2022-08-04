@@ -3,10 +3,10 @@ import { useAppContext } from "../../context";
 interface Props {
   score: number;
   commentId: number;
-  className
+  className;
 }
 
-function CommentCounter({ score, commentId, className}: Props) {
+function CommentCounter({ score, commentId, className }: Props) {
   const { increaseScore, decreaseScore } = useAppContext();
   return (
     <div className={className}>

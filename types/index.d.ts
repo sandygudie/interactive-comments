@@ -43,4 +43,6 @@ export interface AppContextState {
   editComment: (comment: string,commentid: number) => void;
   increaseScore: (commentid: number) => void;
   decreaseScore: (commentid: number) => void;
+  isDelete:boolean, 
+  setisDelete :React.Dispatch<React.SetStateAction<boolean>>;
 }
