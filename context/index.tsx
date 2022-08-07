@@ -7,8 +7,8 @@ import {
   useContext,
 } from "react";
 const { v4: uuidv4 } = require("uuid");
-import { data } from "../data/data";
-import { Comment, CurrentUser, AppContextState } from "../types/index";
+import  data  from "../data/data.json";
+import { Comment, User, AppContextState, Reply } from "../types/index";
 
 export const AppContext = createContext<AppContextState | null>(null);
 
@@ -17,38 +17,29 @@ export const AppProvider = ({
 }: {
   children: ReactNode;
 }): JSX.Element => {
-  const [comments, setComments] = useState<Comment[] | any>(data.comments);
-  const [currentUser, setCurrentuser] = useState<CurrentUser>(data.currentUser);
-  const [isDelete, setisDelete ] =useState(false)
+  const [comments, setComments] = useState<Comment[]>(data.comments);
+  const [currentUser, setCurrentuser] = useState<User>(data.currentUser);
 
   useEffect(() => {
     if (localStorage.getItem("comments") === null) {
       localStorage.setItem("comments", JSON.stringify(data.comments));
     }
-    if (localStorage.getItem("commentsUser") === null) {
-      localStorage.setItem("commentsUser", JSON.stringify(data.currentUser));
-    }
     setComments(JSON.parse(localStorage.getItem("comments") || ""));
-    setCurrentuser(JSON.parse(localStorage.getItem("commentsUser") || ""));
-  }, [setComments, setCurrentuser]);
+  }, [setComments]);
 
-  const deleteComment = (id:number) => {
-    console.log(id)
-    comments.forEach(function (o, i) {
+  const deleteComment = (id: number) => {
+    comments.find(function (o: Comment, i) {
       o.id === id
         ? comments.splice(i, 1)
-        : o.replies.forEach(function (item, i) {
-            item.id === id
-              ? (o.replies = o.replies.filter((s) => s.id != id))
-              : (item.replies = item.replies?.filter((s) => s.id != id));
+        : o.replies.find(function (item: Reply) {
+            o.replies = o.replies.filter((s) => s.id != id);
           });
     });
     setComments([...comments]);
-    localStorage.setItem("comments", JSON.stringify([...comments]));
-    setisDelete(false)
+    localStorage.setItem("comments", JSON.stringify(comments));
   };
 
-  const AddComment = (comment:string) => {
+  const AddComment = (comment: string) => {
     if (comment) {
       const newComment: Comment = {
         id: uuidv4(),
@@ -67,41 +58,28 @@ export const AppProvider = ({
     return;
   };
 
-  const editComment = (editMsg:string, commentId:number) => {
+  const editComment = (editMsg: string, commentId: number) => {
     if (editMsg) {
-      const editMessage = comments.map((comment) => {
+      comments.find((comment) => {
         comment.id === commentId
           ? (comment.content = editMsg)
-          : comment.replies.forEach((subreplies) => {
+          : comment.replies.find((subreplies) => {
               subreplies.id === commentId
                 ? (subreplies.content = editMsg)
-                : subreplies.replies?.forEach((subitem) => {
-                    subitem.id === commentId
-                      ? (subitem.content = editMsg)
-                      : subitem.content;
-
-                    return subreplies;
-                  });
+                : subreplies.content;
             });
-        return comment;
       });
-      setComments(editMessage);
-      localStorage.setItem("comments", JSON.stringify(editMessage));
+      setComments([...comments]);
+      localStorage.setItem("comments", JSON.stringify(comments));
     }
   };
 
-  const increaseScore = (commentId:number) => {
+  const increaseScore = (commentId: number) => {
     const scorecomments = comments.map((comment) => {
       comment.id === commentId
         ? comment.score++
-        : comment.replies.forEach((subreplies) => {
-            subreplies.id === commentId
-              ? subreplies.score++
-              : subreplies.replies?.forEach((subitem) => {
-                  subitem.id === commentId ? subitem.score++ : subitem.content;
-
-                  return subreplies;
-                });
+        : comment.replies.find((subreplies) => {
+            subreplies.id === commentId ? subreplies.score++ : subreplies.score;
           });
       return comment;
     });
@@ -109,18 +87,12 @@ export const AppProvider = ({
     localStorage.setItem("comments", JSON.stringify(scorecomments));
   };
 
-  const decreaseScore = (commentId:number) => {
+  const decreaseScore = (commentId: number) => {
     const scorecomments = comments.map((comment) => {
       comment.id === commentId
         ? comment.score--
-        : comment.replies.forEach((subreplies) => {
-            subreplies.id === commentId
-              ? subreplies.score--
-              : subreplies.replies?.forEach((subitem) => {
-                  subitem.id === commentId ? subitem.score-- : subitem.content;
-
-                  return subreplies;
-                });
+        : comment.replies.find((subreplies) => {
+            subreplies.id === commentId ? subreplies.score-- : subreplies.score;
           });
       return comment;
     });
@@ -128,13 +100,17 @@ export const AppProvider = ({
     localStorage.setItem("comments", JSON.stringify(scorecomments));
   };
 
-  const AddReply = (comment:string, commentid:number) => {
+  const AddReply = (comment: string, commentid: number) => {
     if (comment) {
       let replyingToName = "";
-      comments.forEach((post) =>
-        post.replies?.filter((item) => {
-          item.id === commentid ? (replyingToName = item.replyingTo) : null;
-        })
+      comments.find((post) =>
+        post.id === commentid
+          ? (replyingToName = post.user.username)
+          : post.replies?.find((item) => {
+              item.id === commentid
+                ? (replyingToName = item.user.username)
+                : null;
+            })
       );
       const newComment = {
         id: uuidv4(),
@@ -149,11 +125,7 @@ export const AppProvider = ({
           item.id === commentid
             ? item.replies.push(newComment)
             : item.replies.map((subitem) => {
-                subitem.id === commentid
-                  ? subitem.replies === undefined
-                    ? (subitem.replies = [newComment])
-                    : subitem.replies.push(newComment)
-                  : subitem;
+                subitem.id === commentid ? item.replies.push(newComment) : item;
               });
           return item;
         })
@@ -173,8 +145,6 @@ export const AppProvider = ({
         editComment,
         increaseScore,
         decreaseScore,
-        isDelete, 
-        setisDelete
       }}
     >
       {children}
