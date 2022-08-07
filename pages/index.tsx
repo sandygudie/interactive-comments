@@ -11,6 +11,8 @@ export default function Home() {
     <div className="p-2 lg:w-1/2 m-auto mt-4 md:mt-16">
       <Head>
         <title>Interactive Comment App</title>
+        <meta name="description" content="Interactive Comment App" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {comments.map((item: Comment) => (

@@ -29,22 +29,15 @@
   src: url("./fonts/Rubik/Rubik-Bold.ttf") format("opentype");
   font-display: swap;
 } */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
 
-/* html,
-body {
-  @apply font-lex;
-  @apply font-light;
-  scroll-behavior: smooth;
-  margin: 0;
-  background-color: hsl(223, 19%, 93%);
-} */
 html,
 body {
   font-family: "Rubik", sans-serif !important;
   scroll-behavior: smooth;
   margin: 0;
   background-color: hsl(223, 19%, 93%);
+  font-display: swap;
 }
 h1,
 h2,
@@ -59,7 +52,6 @@ h6 {
   :root {
     --color-background: hsl(223, 19%, 93%);
     --color-text: hsl(211, 10%, 45%);
-    /* --color-input-background: white; */
   }
 }
 textarea::placeholder {
@@ -67,4 +59,3 @@ textarea::placeholder {
   color: hsl(211, 10%, 45%);
   opacity: 1; /* Firefox */
 }
-
