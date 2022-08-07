@@ -22,9 +22,9 @@ export const CommentBox = ({
 }: Props) => {
   return (
     <>
-      <div className="hidden md:flex items-start text-sm bg-white p-4 mb-4 rounded-md h-auto">
+      <div className="hidden md:flex items-start text-sm bg-white p-5 mb-4 rounded-md h-auto">
         <CommentCounter
-          className="w-10 bg-gray-100 text-center text-gray-300 text-lg flex flex-col items-center justify-between px-2 rounded-md"
+          className="w-8 bg-gray-100 text-center text-gray-300 text-lg flex flex-col items-center justify-between px-2 rounded-md"
           score={commentDetails.score}
           commentId={commentDetails.id}
         />

@@ -18,7 +18,7 @@ function CommentCounter({ score, commentId, className }: Props) {
       >
         +
       </button>
-      <p className="font-normal py-1 text-primary ">{score}</p>
+      <p className="font-normal py-1 text-primary text-sm font-bold">{score}</p>
       <button
         onClick={() => {
           decreaseScore(commentId);

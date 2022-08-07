@@ -23,7 +23,7 @@ function CommentMsg({
           setIsEdit={setIsEdit}
         />
       ) : (
-        <div className="text-sm text-gray-200 my-2 font-medium">
+        <div className="text-sm text-gray-200 mt-3 mb-1 font-medium">
           {" "}
           {replyingTo && (
             <span className="font-medium text-primary font-bold">
