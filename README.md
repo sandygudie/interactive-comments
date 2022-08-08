@@ -19,3 +19,5 @@ Your users should be able to:
 
 ### Live Solution
 https://app-interactive-comments.netlify.app/
+
+#### App Built with Redux https://github.com/sandygudie/comment-app
